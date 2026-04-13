@@ -1,0 +1,43 @@
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { font-size: 16px; }
+
+body {
+  background: #f0f2f5;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  padding: 20px 16px 64px;
+  color: #1e293b;
+  min-height: 100vh;
+}
+
+/* shared button resets */
+button { font-family: inherit; }
+
+/* shared input/select resets (used across components) */
+input, select {
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+/* Angular host element reset */
+app-root,
+app-navbar,
+app-calculator,
+app-history,
+app-auth-modal,
+app-toast {
+  display: block;
+}
+
+/* smooth scrollbar */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: #f0f2f5; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }

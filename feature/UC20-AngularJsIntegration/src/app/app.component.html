@@ -1,0 +1,33 @@
+<div class="container">
+
+  <!-- ── Navbar (parent → child via @Input, child → parent via @Output) ── -->
+  <app-navbar
+    [currentPage]="currentPage()"
+    (pageChange)="navigateTo($event)"
+    (openAuth)="openAuthModal($event)">
+  </app-navbar>
+
+  <!-- ── API status badge ── -->
+  <div class="api-status">{{ apiStatus() }}</div>
+
+  <!-- ── Calculator Page ── -->
+  <div *ngIf="currentPage() === 'calc'">
+    <app-calculator></app-calculator>
+  </div>
+
+  <!-- ── History Page ── -->
+  <div *ngIf="currentPage() === 'history'">
+    <app-history (openAuth)="openAuthModal($event)"></app-history>
+  </div>
+
+</div>
+
+<!-- ── Auth Modal (outside container so it overlays everything) ── -->
+<app-auth-modal
+  [isOpen]="authModalOpen()"
+  [activeTab]="authModalTab()"
+  (closed)="closeAuthModal()">
+</app-auth-modal>
+
+<!-- ── Global Toast ── -->
+<app-toast></app-toast>

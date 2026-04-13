@@ -1,0 +1,175 @@
+.card {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.op-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  background: #fafcff;
+  border-bottom: 1px solid #e2e8f0;
+  gap: 2px;
+}
+.op-tab {
+  background: none;
+  border: none;
+  padding: 10px 14px;
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #475569;
+  border-bottom: 2px solid transparent;
+  transition: color .15s, border-color .15s, background .15s;
+  .op-icon { margin-right: 4px; }
+  &.active { color: #2563eb; border-bottom-color: #2563eb; background: #fff; }
+  &:hover:not(.active) { background: #f1f5f9; }
+}
+.type-row {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #fff;
+  border-bottom: 1px solid #eef2f9;
+  flex-wrap: wrap;
+}
+.type-badge {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 4px 16px;
+  border-radius: 40px;
+  font-size: .8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+  &.active { background: #2563eb; color: #fff; border-color: #2563eb; }
+  &:hover:not(.active) { background: #e0e7ff; }
+}
+.panel { padding: 20px 18px; display: none; &.active { display: block; } }
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+  @media(max-width:480px){ grid-template-columns: 1fr; }
+}
+.input-group { margin-bottom: 0; }
+label {
+  font-size: .7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .3px;
+  color: #5b6e8c;
+  display: block;
+  margin-bottom: 5px;
+}
+input, select {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: .95rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  background: #fff;
+  font-family: 'SF Mono','Fira Code',monospace;
+  transition: border-color .15s, box-shadow .15s;
+  &:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,.1); }
+}
+.result-input { background: #f1f5f9 !important; color: #0f3b5c; font-weight: 600; }
+.result-block {
+  background: #f8fafc;
+  border-radius: 18px;
+  padding: 14px 18px;
+  margin: 16px 0 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 4px solid #2563eb;
+  transition: border-color .2s, background .2s;
+  &.equal     { border-left-color: #16a34a; background: #f0fdf4; }
+  &.not-equal { border-left-color: #dc2626; background: #fef2f2; }
+}
+.result-val {
+  font-family: 'SF Mono','Fira Code',monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f3b5c;
+  word-break: break-all;
+}
+.compare-val { font-size: 1rem; letter-spacing: .5px; }
+.copy-btn {
+  background: #eef2ff;
+  border: none;
+  padding: 5px 14px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: .72rem;
+  font-weight: 500;
+  transition: background .15s;
+  white-space: nowrap;
+  &:hover { background: #c7d2fe; }
+}
+.action-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  gap: 12px;
+}
+.btn-calc {
+  background: #2563eb;
+  border: none;
+  padding: 9px 22px;
+  border-radius: 40px;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: .85rem;
+  transition: background .15s, transform .1s;
+  &:hover  { background: #1d4ed8; }
+  &:active { transform: scale(.97); }
+}
+.save-check {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: .8rem;
+  font-weight: 500;
+  color: #475569;
+  cursor: pointer;
+  input[type='checkbox'] { width: 16px; height: 16px; cursor: pointer; accent-color: #2563eb; }
+}
+.quick-ref {
+  margin-top: 8px;
+  font-size: .75rem;
+  background: #fefce8;
+  border-radius: 20px;
+  padding: 10px 16px;
+  border: 1px solid #fef08a;
+}
+.ref-title {
+  font-weight: 700;
+  cursor: pointer;
+  color: #713f12;
+  user-select: none;
+  &:hover { color: #451a03; }
+}
+.ref-content {
+  display: none;
+  margin-top: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(80px,1fr));
+  gap: 6px;
+  &.open { display: grid; }
+}
+.ref-chip {
+  background: #fff;
+  border: 1px solid #fde68a;
+  border-radius: 10px;
+  padding: 4px 8px;
+  text-align: center;
+  font-family: monospace;
+  font-weight: 600;
+  color: #92400e;
+}

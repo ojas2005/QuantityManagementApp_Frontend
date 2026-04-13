@@ -1,0 +1,273 @@
+<!-- ══════════════════════════════════════════════════════════
+     Operation Tabs
+══════════════════════════════════════════════════════════ -->
+<div class="card">
+
+  <div class="op-tabs">
+    <button
+      *ngFor="let op of operations"
+      class="op-tab"
+      [class.active]="currentOp() === op.key"
+      (click)="setOp(op.key)">
+      <span class="op-icon">{{ op.icon }}</span> {{ op.label }}
+    </button>
+  </div>
+
+  <!-- Measurement-Type Badges -->
+  <div class="type-row">
+    <div
+      *ngFor="let t of measurementTypes"
+      class="type-badge"
+      [class.active]="currentType() === t.key"
+      (click)="setType(t.key)">
+      {{ t.label }}
+    </div>
+  </div>
+
+  <!-- ═══════ PANEL: Convert ═══════ -->
+  <div class="panel" [class.active]="currentOp() === 'convert'" [formGroup]="convertForm">
+    <div class="two-col">
+      <div class="input-group">
+        <label>From value</label>
+        <input type="number" formControlName="value" placeholder="0" step="any">
+      </div>
+      <div class="input-group">
+        <label>From unit</label>
+        <select formControlName="from">
+          <option *ngFor="let u of units()" [value]="u">{{ u }}</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>To unit</label>
+        <select formControlName="to">
+          <option *ngFor="let u of units()" [value]="u">{{ u }}</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Result (live)</label>
+        <input type="text" [value]="convertResult" readonly class="result-input">
+      </div>
+    </div>
+    <div class="result-block">
+      <span class="result-val">{{ convertResult }}</span>
+      <button class="copy-btn" type="button" (click)="copyResult(convertResult)">Copy</button>
+    </div>
+    <div class="action-bar">
+      <button class="btn-calc" type="button" (click)="saveConvert()">Convert &amp; Save</button>
+      <label class="save-check">
+        <input type="checkbox" formControlName="saveToHistory"> Save to history
+      </label>
+    </div>
+  </div>
+
+  <!-- ═══════ PANEL: Add ═══════ -->
+  <div class="panel" [class.active]="currentOp() === 'add'" [formGroup]="addForm">
+    <div class="two-col">
+      <div class="input-group">
+        <label>Value A</label>
+        <input type="number" formControlName="valueA" step="any">
+      </div>
+      <div class="input-group">
+        <label>Unit A</label>
+        <select formControlName="unitA">
+          <option *ngFor="let u of units()" [value]="u">{{ u }}</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Value B</label>
+        <input type="number" formControlName="valueB" step="any">
+      </div>
+      <div class="input-group">
+        <label>Unit B</label>
+        <select formControlName="unitB">
+          <option *ngFor="let u of units()" [value]="u">{{ u }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="input-group">
+      <label>Result unit</label>
+      <select formControlName="resultUnit">
+        <option *ngFor="let u of units()" [value]="u">{{ u }}</option>
+      </select>
+    </div>
+    <div class="result-block">
+      <span class="result-val">{{ addResult }}</span>
+      <button class="copy-btn" type="button" (click)="copyResult(addResult)">Copy</button>
+    </div>
+    <div class="action-bar">
+      <button class="btn-calc" type="button" (click)="saveAdd()">Add &amp; Save</button>
+      <label class="save-check">
+        <input type="checkbox" formControlName="saveToHistory"> Save
+      </label>
+    </div>
+  </div>
+
+  <!-- ═══════ PANEL: Subtract ═══════ -->
+  <div class="panel" [class.active]="currentOp() === 'subtract'" [formGroup]="subtractForm">
+    <div class="two-col">
+      <div class="input-group">
+        <label>Value A</label>
+        <input type="number" formControlName="valueA" step="any">
+      </div>
+      <div class="input-group">
+        <label>Unit A</label>
+        <select formControlName="unitA">
+          <option *ngFor="let u of units()" [value]="u">{{ u }}</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Value B</label>
+        <input type="number" formControlName="valueB" step="any">
+      </div>
+      <div class="input-group">
+        <label>Unit B</label>
+        <select formControlName="unitB">
+          <option *ngFor="let u of units()" [value]="u">{{ u }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="input-group">
+      <label>Result unit</label>
+      <select formControlName="resultUnit">
+        <option *ngFor="let u of units()" [value]="u">{{ u }}</option>
+      </select>
+    </div>
+    <div class="result-block">
+      <span class="result-val">{{ subtractResult }}</span>
+      <button class="copy-btn" type="button" (click)="copyResult(subtractResult)">Copy</button>
+    </div>
+    <div class="action-bar">
+      <button class="btn-calc" type="button" (click)="saveSubtract()">Subtract &amp; Save</button>
+      <label class="save-check">
+        <input type="checkbox" formControlName="saveToHistory"> Save
+      </label>
+    </div>
+  </div>
+
+  <!-- ═══════ PANEL: Multiply ═══════ -->
+  <div class="panel" [class.active]="currentOp() === 'multiply'" [formGroup]="multiplyForm">
+    <div class="two-col">
+      <div class="input-group">
+        <label>Value A</label>
+        <input type="number" formControlName="valueA" step="any">
+      </div>
+      <div class="input-group">
+        <label>Unit A</label>
+        <select formControlName="unitA">
+          <option *ngFor="let u of units()" [value]="u">{{ u }}</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Value B (scalar / unit)</label>
+        <input type="number" formControlName="valueB" step="any">
+      </div>
+      <div class="input-group">
+        <label>Unit B</label>
+        <select formControlName="unitB">
+          <option *ngFor="let u of units()" [value]="u">{{ u }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="input-group">
+      <label>Result unit</label>
+      <select formControlName="resultUnit">
+        <option *ngFor="let u of units()" [value]="u">{{ u }}</option>
+      </select>
+    </div>
+    <div class="result-block">
+      <span class="result-val">{{ multiplyResult }}</span>
+      <button class="copy-btn" type="button" (click)="copyResult(multiplyResult)">Copy</button>
+    </div>
+    <div class="action-bar">
+      <button class="btn-calc" type="button" (click)="saveMultiply()">Multiply &amp; Save</button>
+      <label class="save-check">
+        <input type="checkbox" formControlName="saveToHistory"> Save
+      </label>
+    </div>
+  </div>
+
+  <!-- ═══════ PANEL: Divide ═══════ -->
+  <div class="panel" [class.active]="currentOp() === 'divide'" [formGroup]="divideForm">
+    <div class="two-col">
+      <div class="input-group">
+        <label>Numerator</label>
+        <input type="number" formControlName="valueA" step="any">
+      </div>
+      <div class="input-group">
+        <label>Unit A</label>
+        <select formControlName="unitA">
+          <option *ngFor="let u of units()" [value]="u">{{ u }}</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Denominator</label>
+        <input type="number" formControlName="valueB" step="any">
+      </div>
+      <div class="input-group">
+        <label>Unit B</label>
+        <select formControlName="unitB">
+          <option *ngFor="let u of units()" [value]="u">{{ u }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="result-block">
+      <span class="result-val">{{ divideResult }}</span>
+      <button class="copy-btn" type="button" (click)="copyResult(divideResult)">Copy</button>
+    </div>
+    <div class="action-bar">
+      <button class="btn-calc" type="button" (click)="saveDivide()">Divide &amp; Save</button>
+      <label class="save-check">
+        <input type="checkbox" formControlName="saveToHistory"> Save
+      </label>
+    </div>
+  </div>
+
+  <!-- ═══════ PANEL: Compare ═══════ -->
+  <div class="panel" [class.active]="currentOp() === 'compare'" [formGroup]="compareForm">
+    <div class="two-col">
+      <div class="input-group">
+        <label>First value</label>
+        <input type="number" formControlName="valueA" step="any">
+      </div>
+      <div class="input-group">
+        <label>Unit A</label>
+        <select formControlName="unitA">
+          <option *ngFor="let u of units()" [value]="u">{{ u }}</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Second value</label>
+        <input type="number" formControlName="valueB" step="any">
+      </div>
+      <div class="input-group">
+        <label>Unit B</label>
+        <select formControlName="unitB">
+          <option *ngFor="let u of units()" [value]="u">{{ u }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="result-block"
+         [class.equal]="compareResult.includes('EQUAL') && !compareResult.includes('NOT')"
+         [class.not-equal]="compareResult.includes('NOT EQUAL')">
+      <span class="result-val compare-val">{{ compareResult }}</span>
+      <button class="copy-btn" type="button" (click)="copyResult(compareResult)">Copy</button>
+    </div>
+    <div class="action-bar">
+      <button class="btn-calc" type="button" (click)="saveCompare()">Compare &amp; Save</button>
+      <label class="save-check">
+        <input type="checkbox" formControlName="saveToHistory"> Save
+      </label>
+    </div>
+  </div>
+
+</div><!-- /card -->
+
+<!-- Quick Reference -->
+<div class="quick-ref">
+  <span class="ref-title" (click)="toggleRef()">
+    Unit reference {{ refOpen() ? '▾' : '▸' }}
+  </span>
+  <div class="ref-content" [class.open]="refOpen()">
+    <div *ngFor="let u of units()" class="ref-chip">{{ u }}</div>
+  </div>
+</div>

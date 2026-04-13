@@ -1,0 +1,82 @@
+.top-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  background: #fff;
+  padding: 12px 20px;
+  border-radius: 28px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: #eef2ff;
+  padding: 5px 14px;
+  border-radius: 40px;
+
+  span { color: #2563eb; }
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.nav-btn {
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  padding: 6px 18px;
+  font-weight: 600;
+  border-radius: 40px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.15s, color 0.15s;
+
+  &.active {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #fff;
+  }
+}
+
+.auth-area {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-sm {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  padding: 5px 14px;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &.primary {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #fff;
+  }
+
+  &.danger {
+    background: #fee2e2;
+    border-color: #fecaca;
+    color: #b91c1c;
+  }
+}
+
+.user-greeting {
+  font-size: 0.85rem;
+  background: #eef2ff;
+  padding: 4px 12px;
+  border-radius: 30px;
+  font-weight: 500;
+  color: #3730a3;
+}

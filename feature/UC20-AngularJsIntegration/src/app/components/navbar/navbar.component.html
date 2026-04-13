@@ -1,0 +1,40 @@
+<div class="top-bar">
+
+  <!-- Logo -->
+  <div class="logo">📐 <span>QuantityMeasurementApp</span></div>
+
+  <!-- Page Navigation -->
+  <nav class="nav-buttons">
+    <button
+      class="nav-btn"
+      [class.active]="currentPage === 'calc'"
+      (click)="navigate('calc')">
+      Calculator
+    </button>
+    <button
+      class="nav-btn"
+      [class.active]="currentPage === 'history'"
+      (click)="navigate('history')">
+      History
+    </button>
+  </nav>
+
+  <!-- Auth Area -->
+  <div class="auth-area">
+
+    <!-- Anonymous user buttons -->
+    <ng-container *ngIf="!currentUser(); else loggedInTpl">
+      <button class="btn-sm" (click)="openAuth.emit('login')">Log in</button>
+      <button class="btn-sm primary" (click)="openAuth.emit('register')">Sign up</button>
+    </ng-container>
+
+    <!-- Logged-in user panel -->
+    <ng-template #loggedInTpl>
+      <span class="user-greeting">
+        👤 {{ currentUser()?.username || currentUser()?.email }}
+      </span>
+      <button class="btn-sm danger" (click)="logout()">Logout</button>
+    </ng-template>
+
+  </div>
+</div>

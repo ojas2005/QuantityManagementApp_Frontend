@@ -1,0 +1,58 @@
+<div class="card">
+
+  <!-- Header -->
+  <div class="history-header">
+    <h3>📋 Calculation History</h3>
+    <button class="btn-sm" *ngIf="currentUser()" (click)="fetchHistory()">⟳ Refresh</button>
+  </div>
+
+  <!-- ── Guest gate ── -->
+  <div class="gate-card" *ngIf="!currentUser()">
+    <p>Sign in to save and view your calculation history.</p>
+    <button class="btn-sm primary" (click)="openAuth.emit('login')">Log in</button>
+    <button class="btn-sm" (click)="openAuth.emit('register')">Create account</button>
+  </div>
+
+  <!-- ── Authenticated view ── -->
+  <ng-container *ngIf="currentUser()">
+
+    <!-- Filter chips — *ngFor over filters array -->
+    <div class="filter-group">
+      <button
+        *ngFor="let f of filters"
+        class="filter-chip"
+        [class.active]="activeFilter() === f.key"
+        (click)="setFilter(f.key)">
+        {{ f.label }}
+      </button>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading-row" *ngIf="isLoading()">
+      <span class="spinner"></span> Loading…
+    </div>
+
+    <!-- Error -->
+    <div class="error-banner" *ngIf="error() && !isLoading()">
+      ⚠️ {{ error() }}
+    </div>
+
+    <!-- Empty state -->
+    <div class="empty-state"
+         *ngIf="!isLoading() && !error() && filteredHistory().length === 0">
+      No entries found.
+    </div>
+
+    <!-- History list — *ngFor over computed filtered list -->
+    <div class="history-list" *ngIf="!isLoading() && filteredHistory().length > 0">
+      <div class="history-item" *ngFor="let h of filteredHistory()">
+        <span class="history-badge" [ngClass]="badgeClass(h.operationType)">
+          {{ h.operationType || '?' }}
+        </span>
+        <div class="history-desc">{{ h.description || '—' }}</div>
+        <div class="history-date">{{ formatDate(h.timestamp) }}</div>
+      </div>
+    </div>
+
+  </ng-container>
+</div>
