@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBase: 'https://your-production-api.com'  
+  apiBase: 'http://quantitymanagementapp.onrender.com'  
 };

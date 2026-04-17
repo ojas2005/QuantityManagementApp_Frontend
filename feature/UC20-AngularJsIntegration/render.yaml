@@ -1,0 +1,21 @@
+services:
+  # Static Site Service for Angular App
+  - type: web
+    name: quantity-measurement-frontend
+    env: static
+    buildCommand: cd feature/UC20-AngularJsIntegration && npm install && npm run build
+    publishDirectory: feature/UC20-AngularJsIntegration/dist/quantity-measurement-app/browser
+    routes:
+      - src: /.*
+        dest: /index.html
+        status: 200
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache, no-store, must-revalidate
+      - path: /*
+        name: Pragma
+        value: no-cache
+      - path: /*
+        name: Expires
+        value: 0

@@ -1,5 +1,6 @@
 
 export const environment = {
   production: false,
-  apiBase: 'http://localhost:5000'   
+  apiBase: 'https://quantitymanagementapp.onrender.com'   
 };
+
