@@ -4,7 +4,7 @@ services:
     name: quantity-measurement-frontend
     env: static
     buildCommand: cd feature/UC20-AngularJsIntegration && npm install && npm run build
-    publishDirectory: feature/UC20-AngularJsIntegration/dist/quantity-measurement-app/browser
+    publishDirectory: feature/UC20-AngularJsIntegration/dist/quantity-measurement-app
     routes:
       - src: /.*
         dest: /index.html
