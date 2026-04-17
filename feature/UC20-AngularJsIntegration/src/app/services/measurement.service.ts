@@ -40,7 +40,8 @@ export class MeasurementService {
   /** Ping the backend health endpoint */
   checkHealth(): Promise<boolean> {
     return fetch(`${environment.apiBase}/health`, {
-      signal: AbortSignal.timeout(2000)
+      signal: AbortSignal.timeout(5000),
+      mode: 'cors'
     })
       .then(r => r.ok)
       .catch(() => false);

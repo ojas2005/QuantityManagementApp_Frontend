@@ -43,9 +43,13 @@ export class AppComponent implements OnInit {
     // Handle Google OAuth callback params in URL
     this.authService.handleOAuthCallback();
     // Ping backend
-    this.measurementService.checkHealth().then(ok =>
-      this.apiStatus.set(ok ? '✅ API: online' : '⚠️ API offline — check environment.ts')
-    );
+    this.measurementService.checkHealth().then(ok => {
+      console.log('Health check result:', ok);
+      this.apiStatus.set(ok ? 'API: online' : 'API: offline - check environment.ts');
+    }).catch(err => {
+      console.error('Health check failed:', err);
+      this.apiStatus.set('API: offline - check environment.ts');
+    });
   }
 
   // ─── Navigation ─────────────────────────────────────────────────────────────

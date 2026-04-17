@@ -64,6 +64,14 @@ export class AuthService {
     const url = new URL(window.location.href);
     const token = url.searchParams.get('token');
     const userParam = url.searchParams.get('user');
+    const error = url.searchParams.get('error');
+    
+    if (error) {
+      console.error('OAuth error:', error);
+      window.history.replaceState({}, document.title, '/');
+      return;
+    }
+    
     if (token && userParam) {
       try {
         const u = JSON.parse(decodeURIComponent(userParam));
@@ -72,8 +80,12 @@ export class AuthService {
           email: u.email,
           token: decodeURIComponent(token)
         });
+        console.log('OAuth login successful for:', u.username || u.email);
         window.history.replaceState({}, document.title, '/');
-      } catch { /* ignore malformed params */ }
+      } catch (err) {
+        console.error('Failed to parse OAuth callback:', err);
+        window.history.replaceState({}, document.title, '/');
+      }
     }
   }
 }

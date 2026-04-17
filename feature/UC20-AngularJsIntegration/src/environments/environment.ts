@@ -1,6 +1,6 @@
 
 export const environment = {
   production: false,
-  apiBase: 'https://quantitymanagementapp.onrender.com'   
+  apiBase: 'https://quantitymanagementapp.onrender.com/index.html'
 };
 
